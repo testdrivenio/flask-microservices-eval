@@ -10,7 +10,6 @@ class TestEvalBlueprint(BaseTestCase):
 
     def test_ping(self):
         """Ensure the /ping route behaves correctly."""
-        response = self.client.get('/ping')
         response = self.client.get(
             '/ping',
             headers=dict(Authorization='Bearer test')
