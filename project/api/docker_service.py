@@ -3,7 +3,7 @@ import os
 from docker import APIClient
 
 
-client = APIClient(base_url='unix://var/run/docker.sock')
+client = APIClient()
 
 
 def create_container(code, container_name):
