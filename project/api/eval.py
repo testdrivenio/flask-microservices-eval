@@ -7,7 +7,6 @@ import uuid
 from flask import Blueprint, jsonify, request
 
 from project.api.utils import authenticate
-from project.api.docker_service import create_container, get_output
 
 
 eval_blueprint = Blueprint('eval', __name__)
