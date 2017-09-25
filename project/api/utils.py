@@ -26,7 +26,7 @@ def authenticate(f):
         if not response:
             response_object['message'] = 'Invalid token.'
             return jsonify(response_object), code
-        return f(*args, **kwargs)
+        return f(response, *args, **kwargs)
     return decorated_function
 
 
@@ -38,7 +38,9 @@ def ensure_authenticated(token):
     headers = {'Authorization': bearer}
     response = requests.get(url, headers=headers)
     data = json.loads(response.text)
-    if response.status_code == 200 and data['status'] == 'success':
-        return True
+    if response.status_code == 200 and \
+       data['status'] == 'success' and \
+       data['data']['active']:
+        return data
     else:
         return False
