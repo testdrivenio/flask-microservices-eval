@@ -15,7 +15,7 @@ eval_blueprint = Blueprint('eval', __name__)
 
 @eval_blueprint.route('/ping', methods=['GET'])
 @authenticate
-def ping_pong():
+def ping_pong(resp):
     return jsonify({
         'status': 'success',
         'message': 'pong!'
