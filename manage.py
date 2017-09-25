@@ -5,8 +5,10 @@ import unittest
 import coverage
 
 from flask_script import Manager
+from flask_migrate import MigrateCommand
 
-from project import create_app
+from project import create_app, db
+from project.api.models import Score
 
 
 COV = coverage.coverage(
@@ -21,6 +23,8 @@ COV.start()
 
 app = create_app()
 manager = Manager(app)
+manager.add_command('db', MigrateCommand)
+
 
 @manager.command
 def test():
@@ -46,6 +50,14 @@ def cov():
         COV.erase()
         return 0
     return 1
+
+
+@manager.command
+def recreate_db():
+    """Recreates a database."""
+    db.drop_all()
+    db.create_all()
+    db.session.commit()
 
 
 if __name__ == '__main__':

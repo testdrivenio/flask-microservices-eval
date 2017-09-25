@@ -1,0 +1,4 @@
+CREATE DATABASE eval_prod;
+CREATE DATABASE eval_staging;
+CREATE DATABASE eval_dev;
+CREATE DATABASE eval_test;
