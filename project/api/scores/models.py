@@ -1,4 +1,4 @@
-# project/api/models.py
+# project/api/scores/models.py
 
 
 import datetime

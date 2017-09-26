@@ -8,7 +8,7 @@ from flask_script import Manager
 from flask_migrate import MigrateCommand
 
 from project import create_app, db
-from project.api.models import Score
+from project.api.scores.models import Score
 
 
 COV = coverage.coverage(
