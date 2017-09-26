@@ -5,7 +5,7 @@ import datetime
 
 
 from project import db
-from project.api.models import Score
+from project.api.scores.models import Score
 
 
 def add_score(user_id, exercise_id, correct,
