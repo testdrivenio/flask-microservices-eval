@@ -9,6 +9,7 @@ from flask_migrate import MigrateCommand
 
 from project import create_app, db
 from project.api.scores.models import Score
+from project.api.exercises.models import Exercise
 
 
 COV = coverage.coverage(

@@ -35,5 +35,7 @@ def create_app():
     app.register_blueprint(eval_blueprint)
     from project.api.scores.scores import scores_blueprint
     app.register_blueprint(scores_blueprint)
+    from project.api.exercises.exercises import exercises_blueprint
+    app.register_blueprint(exercises_blueprint)
 
     return app
