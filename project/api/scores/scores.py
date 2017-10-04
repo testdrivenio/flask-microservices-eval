@@ -203,3 +203,55 @@ def update_score(resp, score_id):
             'message': 'Invalid payload.'
         }
         return jsonify(response_object), 400
+
+
+@scores_blueprint.route('/scores', methods=['PATCH'])
+@scores_blueprint.route('/scores/<score_id>', methods=['PATCH'])
+@authenticate
+def upsert_score(resp, score_id=None):
+    """Upsert score"""
+    auth_user_id = int(resp['data']['id'])
+    post_data = request.get_json()
+    if not post_data:
+        response_object = {
+            'status': 'fail',
+            'message': 'Invalid payload.'
+        }
+        return jsonify(response_object), 400
+    exercise_id = post_data.get('exercise_id')
+    correct = post_data.get('correct')
+    try:
+        filter_args = {
+            'exercise_id': int(exercise_id),
+            'user_id': int(resp['data']['id'])
+        }
+        if score_id:
+            filter_args['id'] = int(score_id)
+
+        score = Score.query.filter_by(**filter_args).first()
+        if score:
+            score.correct = correct
+            db.session.commit()
+            response_object = {
+                'status': 'success',
+                'message': 'Score was updated!'
+            }
+            return jsonify(response_object), 200
+        else:
+            db.session.add(Score(
+                user_id=auth_user_id,
+                exercise_id=exercise_id,
+                correct=correct))
+            db.session.commit()
+            response_object = {
+                'status': 'success',
+                'message': 'New score was added!'
+            }
+            return jsonify(response_object), 201
+    except (exc.IntegrityError, ValueError, TypeError) as e:
+        db.session().rollback()
+        response_object = {
+            'status': 'fail',
+            'message': 'Invalid payload.'
+        }
+        return jsonify(response_object), 400
