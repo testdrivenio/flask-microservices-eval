@@ -19,3 +19,11 @@ def ping_pong(resp):
         'status': 'success',
         'message': 'pong!'
     })
+
+
+@eval_blueprint.route('/health', methods=['GET'])
+def health():
+    return jsonify({
+        'status': 'success',
+        'message': 'sanity check!'
+    })
