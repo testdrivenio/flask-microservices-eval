@@ -3,7 +3,7 @@ chardet==3.0.4
 click==6.7
 coverage==4.4.1
 Flask==0.12.2
-Flask-Cors==3.0.3
+Flask-Cors==3.0.9
 Flask-Script==2.0.6
 Flask-Testing==0.6.2
 gunicorn==19.7.1
